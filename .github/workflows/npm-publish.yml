@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          registry-url: https://registry.npmjs.org/frogtester7
+          registry-url: https://registry.npmjs.org/frogtester6/
       - run: npm ci --registry https://registry.npmjs.org
       - run: npm publish
         env:
