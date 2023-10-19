@@ -14,5 +14,4 @@ jobs:
           node-version: 16
       - name: Setup JFrog CLI
       - uses: jfrog/setup-jfrog-cli@v3.4.0
-      - run: |
-          jf c add hts2 --url=${{ secrets.HARISH_ARTIFACTORY_URL }} --access-token ${{ secrets.HARISH_ARTIFACTORY_ACCESS_TOKEN }} --interactive=false
+      - run: jf c add hts2 --url=${{ secrets.HARISH_ARTIFACTORY_URL }} --access-token ${{ secrets.HARISH_ARTIFACTORY_ACCESS_TOKEN }} --interactive=false
