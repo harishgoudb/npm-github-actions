@@ -18,14 +18,12 @@ jobs:
       - uses: jfrog/setup-jfrog-cli@v3.4.0
         env:
            JFROG_CLI_LOG_LEVEL: DEBUG
-      - run: jf c add hts2 --url=${{ secrets.HARISH_ARTIFACTORY_URL }} --access-token ${{ secrets.HARISH_ARTIFACTORY_ACCESS_TOKEN }} --interactive=false
-      - run: jf rt ping
-      - run: jf c show
-      - run: jf npm-config --server-id-resolve=hts2 --repo-resolve=hari-npm --server-id-deploy=hts2 --repo-deploy=hari-npm-local
-      - run: jf npm install
-      - run: jf rt npm-publish
-      - run: jf rt bp
-      
-
-      
+      - run: |
+      jf c add hts2 --url=${{ secrets.HARISH_ARTIFACTORY_URL }} --access-token ${{ secrets.HARISH_ARTIFACTORY_ACCESS_TOKEN }} --interactive=false
+      jf rt ping
+      jf c show
+      jf npm-config --server-id-resolve=hts2 --repo-resolve=hari-npm --server-id-deploy=hts2 --repo-deploy=hari-npm-local
+      jf npm install
+      jf rt npm-publish
+      jf rt bp
       
