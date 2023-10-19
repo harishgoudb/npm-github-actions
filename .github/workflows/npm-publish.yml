@@ -13,8 +13,6 @@ jobs:
         with:
           node-version: 16
       - name: Setup JFrog CLI
-      # You may pin to the exact commit or the version.
-      # uses: jfrog/setup-jfrog-cli@2d55dc43e261c3d0bd1abfe457fce4d839e83b49\
       - uses: jfrog/setup-jfrog-cli@v3.4.0
         env:
            JFROG_CLI_LOG_LEVEL: DEBUG
