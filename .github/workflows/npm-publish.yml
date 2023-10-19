@@ -12,18 +12,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm ci --registry https://registry.npmjs.org
+      - name: Setup JFrog CLI
+      # You may pin to the exact commit or the version.
+      # uses: jfrog/setup-jfrog-cli@2d55dc43e261c3d0bd1abfe457fce4d839e83b49\
+      - uses: jfrog/setup-jfrog-cli@v3.4.0
+      - run: |
+          jf c add --server-id nesspro --url https://hts2.jfrog.io --username frogtester7 --password Frogtester@7 --interactive false
+          jf c show
 
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org
-      - run: npm ci --registry https://registry.npmjs.org
-      - run: npm publish --registry https://registry.npmjs.org/frogtester6
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      
+
+      
