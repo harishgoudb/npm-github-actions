@@ -16,10 +16,16 @@ jobs:
       # You may pin to the exact commit or the version.
       # uses: jfrog/setup-jfrog-cli@2d55dc43e261c3d0bd1abfe457fce4d839e83b49\
       - uses: jfrog/setup-jfrog-cli@v3.4.0
-      - run: |
-          jf c add --server-id nesspro --url https://hts2.jfrog.io --username frogtester7 --password Frogtester@7 --interactive false
-          jf c show
-
+        env:
+           JFROG_CLI_LOG_LEVEL: DEBUG
+      - run: jf c add hts2 --url=${{ secrets.HARISH_ARTIFACTORY_URL }} --access-token ${{ secrets.HARISH_ARTIFACTORY_ACCESS_TOKEN }} --interactive=false
+      - run: jf rt ping
+      - run: jf c show
+      - run: jf npm-config --server-id-resolve=hts2 --repo-resolve=hari-npm --server-id-deploy=hts2 --repo-deploy=hari-npm-local
+      - run: jf npm install
+      - run: jf rt npm-publish
+      - run: jf rt bp
       
 
+      
       
