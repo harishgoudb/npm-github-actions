@@ -1,7 +1,8 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
 
-name: Node.js Package
+name: Node.js Package testing
+
 on: [push, pull_request]
 
 jobs:
@@ -12,6 +13,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Setup JFrog CLI
-      - uses: jfrog/setup-jfrog-cli@v3.4.0
+      - uses: jfrog/setup-jfrog-cli@v2.3.0
+        env:
+           JFROG_CLI_LOG_LEVEL: DEBUG
       - run: jf c add hts2 --url=${{ secrets.HARISH_ARTIFACTORY_URL }} --access-token ${{ secrets.HARISH_ARTIFACTORY_ACCESS_TOKEN }} --interactive=false
+      - run: jf rt ping
+      - run: jf c show
+      - run: jf npm-config --server-id-resolve=hts2 --repo-resolve=hari-npm --server-id-deploy=hts2 --repo-deploy=hari-npm-local
+      - run: jf npm install
+      - run: jf rt npm-publish
+      - run: jf rt bp
